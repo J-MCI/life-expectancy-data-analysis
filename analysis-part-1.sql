@@ -26,7 +26,7 @@ select * from life_expectancy;
 --year where the period has begun and the year where the period ended.
 
 
---EDA:
+--SHORT EDA:
 
 select 
 	distinct 
@@ -48,7 +48,7 @@ select
 from life_expectancy
 where code is not null 
 group by entity 
-order by entity asc 
+order by entity asc;
 
 --All countries have data up to 2021.
 --Period per entity is not always continuous, data is missing for some years. 
@@ -66,7 +66,7 @@ with a as (
 		, lag(year, 1) over(partition by entity order by year asc) as prev_year
 		, lag(life_expectancy, 1) over(partition by entity order by year asc) as prev_life_expectancy
 	from life_expectancy 
-	where code is not null
+	where code is not null --Countries only
 	order by entity, year asc
 
 )
